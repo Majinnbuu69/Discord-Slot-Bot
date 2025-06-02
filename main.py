@@ -20,21 +20,17 @@ except ModuleNotFoundError:
 from discord.ext import commands
 from discord import Embed
 from datetime import date, datetime, timedelta
-from dotenv import load_dotenv
 
 command_usage = {}
 slot_tasks = {}
 slot_channels = {}
 
-
-load_dotenv()
-
 def load_cfg():
-    with open('config.json') as f:
-        config = json.load(f)
+    load_config = json.load(open('config.json'))
+    return load_config['token'], load_config['owner'], load_config['prefix'], load_config['slot_category']
 
-    token = os.getenv("DISCORD_TOKEN") or config.get("token")
-    return token, config['owner'], config['prefix'], config['slot_category']
+token, owner, prefix, slot_category = load_cfg()
+bot = commands.Bot(command_prefix=prefix, intents=discord.Intents.all(), help_command=None)
 
 @bot.event
 async def on_ready():
