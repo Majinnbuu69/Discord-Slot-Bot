@@ -31,7 +31,7 @@ def load_cfg():
     load_config = json.load(open('config.json'))
     return load_config['owner'], load_config['prefix'], load_config['slot_category']
 
-token, owner, prefix, slot_category = load_cfg()
+owner, prefix, slot_category = load_cfg()
 bot = commands.Bot(command_prefix=prefix, intents=discord.Intents.all(), help_command=None)
 
 @bot.event
