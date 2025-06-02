@@ -14,13 +14,13 @@ try:
     import discord
     import asyncio
     import datetime
-    from dotenv import load_dotenv
 except ModuleNotFoundError:
     os.system('pip install -r requirements.txt')
 
 from discord.ext import commands
 from discord import Embed
 from datetime import date, datetime, timedelta
+from dotenv import load_dotenv
 
 command_usage = {}
 slot_tasks = {}
