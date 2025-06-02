@@ -14,6 +14,7 @@ try:
     import discord
     import asyncio
     import datetime
+    from dotenv import load_dotenv
 except ModuleNotFoundError:
     os.system('pip install -r requirements.txt')
 
@@ -25,12 +26,15 @@ command_usage = {}
 slot_tasks = {}
 slot_channels = {}
 
-def load_cfg():
-    load_config = json.load(open('config.json'))
-    return load_config['token'], load_config['owner'], load_config['prefix'], load_config['slot_category']
 
-token, owner, prefix, slot_category = load_cfg()
-bot = commands.Bot(command_prefix=prefix, intents=discord.Intents.all(), help_command=None)
+load_dotenv()
+
+def load_cfg():
+    with open('config.json') as f:
+        config = json.load(f)
+
+    token = os.getenv("DISCORD_TOKEN") or config.get("token")
+    return token, config['owner'], config['prefix'], config['slot_category']
 
 @bot.event
 async def on_ready():
